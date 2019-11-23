@@ -20,6 +20,7 @@ def main():
 
     print("Running preprocessing...")
 	# TODO: Get data here
+    inputs, labels = get_data("data/genres.tar")
     print("Preprocessing complete.")
 
     # Model arguments
