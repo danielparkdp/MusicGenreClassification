@@ -3,12 +3,17 @@ import tarfile
 import soundfile as sf
 import io
 import numpy as np
-
-
+import tensorflow as tf
 
 genre_ids = {"rock": 0, "reggae": 1, "pop": 2, "metal": 3, "jazz": 4, "hiphop": 5, "disco" : 6, "country": 7, "classical": 8, "blues": 9}
+total_frames = 661794
+frame_portion = 1.0 / 6
+parsed_frames = int(total_frames * frame_portion)
+test_split = 0.8
 
-# Preprocessing takes 90 seconds
+
+# Preprocessing takes 90 seconds with all frames 
+# Takes 30 seconds with reduced frames (5 second windows)
 def get_data(file_name):
     '''
     Takes in a file_name: tar file. 
@@ -23,12 +28,21 @@ def get_data(file_name):
                 buff = io.BytesIO(f.read())
                 # Should experiment with sf.read
                 # Default number of frames is 661794 (~30 seconds)
-                time_series, samplerate = sf.read(buff)
+                # For ~5 seconds, number of frames is 110299
+                time_series, sample_rate = sf.read(buff, frames=parsed_frames)
                 # Converter: mfcc or chromagram
-                # Each converted_mfcc is 20 by 1293, where for 1293 timestamps we get 20 coefficients
+                # Each converted_mfcc is 20 by num_frames
+                # num_frames is 216 for ~5 seconds and 1293 for ~30 seconds
                 converted_mfcc  = librosa.feature.mfcc(time_series)
-                inputs.append(converted_mfcc)
+                inputs.append(converted_mfcc.flatten())
                 labels.append(genre_ids[member.name.split('/')[1]])
-
     tar.close()
-    return inputs, labels
+
+    num_points = len(labels)
+    split_index = int(test_split * num_points)
+    indices = range(num_points)
+    tf.random.shuffle(indices)
+    shuffled_inputs = tf.gather(inputs, indices, 0)
+    shuffled_labels = tf.gather(labels, indices, 0)
+
+    return shuffled_inputs[:split_index], shuffled_labels[:split_index], shuffled_inputs[split_index:], shuffled_labels[split_index:]
