@@ -41,9 +41,9 @@ def get_data(file_name):
     #num_points = len(labels)
     num_points = len(labels)
     split_index = int(test_split * num_points)
-    indices = range(num_points)
-    tf.random.shuffle(indices)
-    shuffled_inputs = tf.gather(inputs, indices, 0)
-    shuffled_labels = tf.gather(labels, indices, 0)
+    indices = range(0, num_points)
+    indices = tf.random.shuffle(indices)
+    shuffled_inputs = tf.gather(inputs, indices)
+    shuffled_labels = tf.gather(labels, indices)
 
     return shuffled_inputs[:split_index], shuffled_labels[:split_index], shuffled_inputs[split_index:], shuffled_labels[split_index:]
