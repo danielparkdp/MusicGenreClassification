@@ -25,9 +25,6 @@ class Linear(tf.keras.Model):
     def accuracy(self, logits, labels):
         len = labels.shape[0]
         labels = tf.reshape(labels, [len, 1])
-        labels = tf.cast(tf.argmax(labels, 1), tf.int32)
         maxes = tf.cast(tf.argmax(logits, 1), tf.int32)
-        len2 = maxes.shape[0]
-        maxes = tf.reshape(maxes, [len2, 1])
         correct_predictions = tf.equal(maxes, labels)
         return tf.reduce_mean(tf.cast(correct_predictions, tf.float32))
