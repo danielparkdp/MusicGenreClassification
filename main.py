@@ -1,4 +1,5 @@
 import os
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = "2"
 import numpy as np
 import tensorflow as tf
 import numpy as np
@@ -38,7 +39,7 @@ def main():
         model = None
     elif sys.argv[1] == "RNN":
         model = None
-        
+
 	# TODO: train and test
     train(model, train_inputs, train_labels)
     print(test(model, test_inputs, test_labels))
