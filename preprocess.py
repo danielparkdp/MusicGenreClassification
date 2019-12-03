@@ -12,11 +12,11 @@ parsed_frames = int(total_frames * frame_portion)
 test_split = 0.8
 
 
-# Preprocessing takes 90 seconds with all frames 
+# Preprocessing takes 90 seconds with all frames
 # Takes 30 seconds with reduced frames (5 second windows)
 def get_data(file_name):
     '''
-    Takes in a file_name: tar file. 
+    Takes in a file_name: tar file.
     '''
     inputs = []
     labels = []
@@ -38,6 +38,7 @@ def get_data(file_name):
                 labels.append(genre_ids[member.name.split('/')[1]])
     tar.close()
 
+    #num_points = len(labels)
     num_points = len(labels)
     split_index = int(test_split * num_points)
     indices = range(num_points)
