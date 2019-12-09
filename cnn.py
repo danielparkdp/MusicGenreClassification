@@ -24,7 +24,7 @@ class CNN(tf.keras.Model):
 
         model.add(Flatten())
         model.add(Dense(15, activation="relu"))
-        model.add(Dense(10, activation="sigmoid"))
+        model.add(Dense(self.num_classes))
 
         self.model = model
         self.optimizer = tf.keras.optimizers.Adam(learning_rate=0.01)
