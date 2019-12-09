@@ -23,13 +23,7 @@ class Linear(tf.keras.Model):
         return tf.reduce_mean(tf.nn.sparse_softmax_cross_entropy_with_logits(labels, logits))
 
     @tf.function
-    def accuracy(self, logits, labels):
-        # len = labels.shape[0]
-        # labels = tf.reshape(labels, [len, 1])
-        # maxes = tf.cast(tf.argmax(logits, 1), tf.int32)
-        # correct_predictions = tf.equal(maxes, labels)
-        # return tf.reduce_mean(tf.cast(correct_predictions, tf.float32))
-        
+    def accuracy(self, logits, labels): 
         maxes = tf.cast(tf.argmax(logits, 1), tf.int32)
         correct = tf.equal(maxes, labels)
-        return tf.reduce_mean(tf.cast(correct, tf.float32)), maxes
+        return tf.reduce_mean(tf.cast(correct, tf.float32))
