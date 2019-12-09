@@ -7,12 +7,12 @@ class Linear(tf.keras.Model):
         super(Linear, self).__init__()
 
         self.num_classes = 10
-        self.batch_size = 25
+        self.batch_size = 100
 
         self.dense1 = tf.keras.layers.Dense(300, activation='relu', use_bias=True)
         self.dense2 = tf.keras.layers.Dense(150, activation='relu', use_bias=True)
         self.dense3 = tf.keras.layers.Dense(self.num_classes, use_bias=True)
-        self.optimizer = tf.keras.optimizers.Adam(learning_rate=0.001)
+        self.optimizer = tf.keras.optimizers.Adam(learning_rate=0.01)
 
     @tf.function
     def call(self, inputs):
