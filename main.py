@@ -31,8 +31,6 @@ def main():
     train_inputs, train_labels, test_inputs, test_labels = get_data("data/genres.tar")
     print("Preprocessing complete.")
 
-    # Model arguments
-	# TODO: Set model arguments here
     if sys.argv[1] == "LINEAR":
         model = Linear()
     elif sys.argv[1] == "CNN":
@@ -41,7 +39,8 @@ def main():
         model = None
 
 	# TODO: train and test
-    train(model, train_inputs, train_labels)
+    for _ in range(5):
+        train(model, train_inputs, train_labels)
     print(test(model, test_inputs, test_labels))
 
 
