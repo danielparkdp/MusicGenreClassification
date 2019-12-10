@@ -14,7 +14,7 @@ def train(model, train_inputs, train_labels):
         with tf.GradientTape() as tape:
             logits = model.call(train_inputs[batch_num : batch_num + model.batch_size])
             loss = model.loss(logits, train_labels[batch_num : batch_num + model.batch_size])
-            print(loss)
+            # print(loss)
         gradients = tape.gradient(loss, model.trainable_variables)
         model.optimizer.apply_gradients(zip(gradients, model.trainable_variables))
 
@@ -34,7 +34,7 @@ def main():
 
     if sys.argv[1] == "LINEAR":
         model = Linear()
-        num_epochs = 5
+        num_epochs = 100
     elif sys.argv[1] == "CNN":
         model = CNN()
         num_epochs = 1
