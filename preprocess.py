@@ -9,7 +9,7 @@ genre_ids = {"rock": 0, "reggae": 1, "pop": 2, "metal": 3, "jazz": 4, "hiphop": 
 total_frames = 661794
 total_mfcc_frames = 1293
 # Given 30 second audio clip, how many datapoints to break up into
-divisor = 60
+divisor = 10
 frame_portion = 1.0 / divisor
 parsed_frames = int(total_frames * frame_portion)
 parsed_mfcc_frames = int(total_mfcc_frames * frame_portion)
@@ -81,7 +81,9 @@ def get_data(file_name):
                 converted_mfcc  = librosa.feature.mfcc(time_series)
                 label_id = genre_ids[member.name.split('/')[1]]
                 for i in range(divisor):
-                    spliced_datapoint = np.average(converted_mfcc[:, (i * parsed_mfcc_frames): ((i + 1) * parsed_mfcc_frames)], axis=1)#.reshape((20, 1))
+                    spliced_datapoint = np.average(converted_mfcc[:, (i * parsed_mfcc_frames): ((i + 1) * parsed_mfcc_frames)], axis=1)
+                    # cov = np.cov(spliced_datapoint)
+                    # print(cov)
                     inputs.append(spliced_datapoint)
                     labels.append(label_id)
     tar.close()
