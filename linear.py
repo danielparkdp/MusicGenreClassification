@@ -7,7 +7,7 @@ class Linear(tf.keras.Model):
         super(Linear, self).__init__()
 
         self.num_classes = 10
-        self.batch_size = 100
+        self.batch_size = 800
 
         self.dense1 = tf.keras.layers.Dense(300, activation='relu', use_bias=True)
         self.dense2 = tf.keras.layers.Dense(150, activation='relu', use_bias=True)
