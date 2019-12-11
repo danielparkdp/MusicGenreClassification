@@ -26,9 +26,15 @@ class RNN(tf.keras.Model):
         #model.add(GRU(20, use_bias=True, dropout=0.5, recurrent_dropout=0.1))
         #model.add(Dense(60, kernel_regularizer=l2(.01), use_bias=True))
         #model.add(Dense(self.num_classes, activation='softmax', use_bias=True))
+
         model.add(LSTM(units=128, dropout=0.05, recurrent_dropout=0.35, return_sequences=True))
         model.add(LSTM(units=32,  dropout=0.05, recurrent_dropout=0.35, return_sequences=False))
-        model.add(Dense(units=self.num_classes, activation="softmax"))
+        model.add(Dense(150, activation="relu", use_bias=True))
+        model.add(Dense(units=self.num_classes, activation="softmax", use_bias=True))
+
+        # model.add(LSTM(units=128, dropout=0.05, recurrent_dropout=0.35, return_sequences=True))
+        # model.add(LSTM(units=32,  dropout=0.05, recurrent_dropout=0.35, return_sequences=False))
+        # model.add(Dense(units=self.num_classes, activation="softmax"))
 
 
         self.model = model
