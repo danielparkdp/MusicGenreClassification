@@ -35,15 +35,16 @@ def get_rnn_data(file_name):
                 converted_mfcc  = librosa.feature.mfcc(time_series)
                 label_id = genre_ids[member.name.split('/')[1]]
 
-                input = []
-                for i in range(15):
+                for i in range(divisor):
+                    # no averaging
                     pt = converted_mfcc[:, (i * parsed_mfcc_frames): ((i + 1) * parsed_mfcc_frames)]
-                    input.append(np.average(converted_mfcc[:, (i * parsed_mfcc_frames): ((i + 1) * parsed_mfcc_frames)], axis=1))
+                    # print(pt.shape)
+                    inputs.append(pt)
+                    labels.append(label_id)
                     # spliced_datapoint = np.average(converted_mfcc[:, (i * parsed_mfcc_frames): ((i + 1) * parsed_mfcc_frames)], axis=1)#.reshape((20, 1))
                     # inputs.append(spliced_datapoint)
                     # labels.append(label_id)
-                inputs.append(input)
-                labels.append(label_id)
+                
     tar.close()
 
     num_points = len(labels)
@@ -56,8 +57,8 @@ def get_rnn_data(file_name):
     shuffled_labels = tf.gather(labels, indices)
 
     return shuffled_inputs[:split_index], shuffled_labels[:split_index], shuffled_inputs[split_index:], shuffled_labels[split_index:]
-# Preprocessing takes 90 seconds with all frames
-# Takes 30 seconds with reduced frames (5 second windows)
+
+
 def get_data(file_name):
     '''
     Takes in a file_name: tar file.
@@ -69,15 +70,13 @@ def get_data(file_name):
         if ".wav" in member.name:
             f=tar.extractfile(member)
             if f != None:
-                buff = io.BytesIO(f.read())
-
-                # Should experiment with sf.read
                 # Default number of frames is 661794 (~30 seconds)
                 # For ~5 seconds, number of frames is 110299
-                time_series, sample_rate = sf.read(buff)
                 # Converter: mfcc or chromagram
                 # Each converted_mfcc is 20 by num_frames
                 # num_frames is 216 for ~5 seconds and 1293 for ~30 seconds
+                buff = io.BytesIO(f.read())
+                time_series, sample_rate = sf.read(buff)
                 converted_mfcc  = librosa.feature.mfcc(time_series)
                 label_id = genre_ids[member.name.split('/')[1]]
                 for i in range(divisor):

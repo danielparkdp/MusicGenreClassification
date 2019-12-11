@@ -33,7 +33,8 @@ def main():
 
     print("Running preprocessing...")
     # train_inputs, train_labels, test_inputs, test_labels = get_data("data/genres.tar")
-    train_inputs, train_labels, test_inputs, test_labels = get_data("genres.gz")
+    # train_inputs, train_labels, test_inputs, test_labels = get_data("genres.gz")
+    train_inputs, train_labels, test_inputs, test_labels = get_rnn_data("data/genres.tar")
 
     print("Preprocessing complete.")
 
