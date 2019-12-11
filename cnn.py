@@ -33,11 +33,11 @@ class CNN(tf.keras.Model):
         # model.add(Conv2D(64, kernel_size=2, strides=2, activation='relu', kernel_initializer=weights_init), padding='same')
         model.add(Flatten())
         model.add(Dropout(0.5))
-        model.add(Dense(64, activation="relu"))
+        model.add(Dense(64, activation="relu", use_bias=True))
         # model.add(LeakyReLU())
         # model.add(Dense(16))
         # model.add(Dense(self.num_classes, activation='softmax'))
-        model.add(Dense(self.num_classes))
+        model.add(Dense(self.num_classes, use_bias=True))
 
         # model.add(Dense(4 * 4 * 32))
         # model.add(BatchNormalization())
