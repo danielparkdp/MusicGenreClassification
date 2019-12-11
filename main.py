@@ -34,7 +34,10 @@ def main():
     print("Running preprocessing...")
     # train_inputs, train_labels, test_inputs, test_labels = get_data("data/genres.tar")
     # train_inputs, train_labels, test_inputs, test_labels = get_data("genres.gz")
-    train_inputs, train_labels, test_inputs, test_labels = get_rnn_data("data/genres.tar")
+    if sys.argv[1] in {"RNN"}:
+        train_inputs, train_labels, test_inputs, test_labels = get_rnn_data("data/genres.tar")
+    else:
+        train_inputs, train_labels, test_inputs, test_labels = get_data("data/genres.tar")
 
     print("Preprocessing complete.")
 
