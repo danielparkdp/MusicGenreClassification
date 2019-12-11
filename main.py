@@ -26,15 +26,16 @@ def test(model, test_inputs, test_labels):
     return model.accuracy(logits, test_labels)
 
 def main():
+    type = ""
     if len(sys.argv) != 2 or sys.argv[1] not in {"LINEAR","CNN", "RNN"}:
         print("USAGE: python main.py <Model Type>")
         print("<Model Type>: [LINEAR/CNN/RNN]")
         exit()
-
+    type = sys.argv[1]
     print("Running preprocessing...")
     # train_inputs, train_labels, test_inputs, test_labels = get_data("data/genres.tar")
     # train_inputs, train_labels, test_inputs, test_labels = get_data("genres.gz")
-    if sys.argv[1] in {"RNN"}:
+    if type == "RNN":
         train_inputs, train_labels, test_inputs, test_labels = get_rnn_data("data/genres.tar")
     else:
         train_inputs, train_labels, test_inputs, test_labels = get_data("data/genres.tar")
