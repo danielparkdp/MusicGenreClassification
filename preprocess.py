@@ -9,7 +9,7 @@ genre_ids = {"rock": 0, "reggae": 1, "pop": 2, "metal": 3, "jazz": 4, "hiphop": 
 total_frames = 661794
 total_mfcc_frames = 1293
 # Given 30 second audio clip, how many datapoints to break up into
-divisor = 10
+divisor = 6
 frame_portion = 1.0 / divisor
 parsed_frames = int(total_frames * frame_portion)
 parsed_mfcc_frames = int(total_mfcc_frames * frame_portion)
