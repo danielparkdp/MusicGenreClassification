@@ -29,7 +29,7 @@ def main():
         num_epochs = 100
     elif sys.argv[1] == "CNN":
         model = CNN()
-        num_epochs = 1
+        num_epochs = 100
     elif sys.argv[1] == "RNN":
         model = RNN()
     if len(sys.argv) != 2 or sys.argv[1] not in {"LINEAR","CNN", "RNN"}:
@@ -44,7 +44,7 @@ def main():
     if sys.argv[1] == "RNN":
         train_inputs, train_labels, test_inputs, test_labels = get_rnn_data("data/genres.tar.gz")
     else:
-        train_inputs, train_labels, test_inputs, test_labels = get_data("data/genres.tar")
+        train_inputs, train_labels, test_inputs, test_labels = get_data("data/genres.tar.gz")
 
     print("Preprocessing complete.")
 
@@ -57,7 +57,7 @@ def main():
     if sys.argv[1] == "RNN":
         # train_inputs = train_inputs.reshape(train_inputs.shape[0], train_inputs.shape[1], 1)
         # test_inputs = test_inputs.reshape(test_inputs.shape[0], test_inputs.shape[1], 1)
-        num_epochs = 10
+        num_epochs = 100
         model = tf.keras.Sequential()
         model.add(tf.keras.layers.Dense(units=256))
         model.add(tf.keras.layers.BatchNormalization())

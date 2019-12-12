@@ -89,7 +89,7 @@ def get_rnn_data(file_name):
     data = pd.read_csv('data2.csv')
     data.head()
 
-    # Dropping unneccesary columns
+    # Dropping columns not being used for segmentation
     data = data.drop(['filename'],axis=1)
     data = data.drop(['rmse'], axis=1)
     data = data.drop(['spectral_bandwidth'], axis=1)
