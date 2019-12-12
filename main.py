@@ -24,6 +24,7 @@ def test(model, test_inputs, test_labels):
     return model.accuracy(logits, test_labels)
 
 def main():
+<<<<<<< HEAD
     if sys.argv[1] == "LINEAR":
         model = Linear()
         num_epochs = 100
@@ -32,6 +33,9 @@ def main():
         num_epochs = 100
     elif sys.argv[1] == "RNN":
         model = RNN()
+=======
+    type = ""
+>>>>>>> 67217ac1bbc5ebd5785d5cac967ece324cbffb95
     if len(sys.argv) != 2 or sys.argv[1] not in {"LINEAR","CNN", "RNN"}:
         print("USAGE: python main.py <Model Type>")
         print("<Model Type>: [LINEAR/CNN/RNN]")
@@ -40,6 +44,7 @@ def main():
     print("Running preprocessing...")
     # train_inputs, train_labels, test_inputs, test_labels = get_data("data/genres.tar")
     # train_inputs, train_labels, test_inputs, test_labels = get_data("genres.gz")
+<<<<<<< HEAD
     # train_inputs, train_labels, test_inputs, test_labels = get_rnn_data("data/genres.tar")
     if sys.argv[1] == "RNN":
         train_inputs, train_labels, test_inputs, test_labels = get_rnn_data("data/genres.tar.gz")
@@ -105,6 +110,28 @@ def main():
         for _ in range(num_epochs):
             train(model, train_inputs, train_labels)
         print(test(model, test_inputs, test_labels))
+=======
+    if type == "RNN":
+        train_inputs, train_labels, test_inputs, test_labels = get_rnn_data("data/genres.tar")
+    else:
+        train_inputs, train_labels, test_inputs, test_labels = get_data("data/genres.tar")
+
+    print("Preprocessing complete.")
+
+    if sys.argv[1] == "LINEAR":
+        model = Linear()
+        num_epochs = 5
+    elif sys.argv[1] == "CNN":
+        model = CNN()
+        num_epochs = 100
+    elif sys.argv[1] == "RNN":
+        model = RNN()
+        num_epochs = 20
+
+
+    for _ in range(num_epochs):
+        train(model, train_inputs, train_labels)
+>>>>>>> 67217ac1bbc5ebd5785d5cac967ece324cbffb95
 
     # history = model.fit(train_inputs, train_labels, validation_split = 0.2, epochs=num_epochs, batch_size=model.batch_size, verbose=1)
     # plt.plot(history.history['acc'])
@@ -126,7 +153,12 @@ def main():
     #
     # from keras.utils import plot_model
     # plot_model(model, to_file="model.png")
+<<<<<<< HEAD
 
+=======
+    print(test(model, train_inputs, train_labels))
+    print(test(model, test_inputs, test_labels))
+>>>>>>> 67217ac1bbc5ebd5785d5cac967ece324cbffb95
 
 
 if __name__ == '__main__':
