@@ -9,7 +9,7 @@ class CNN(tf.keras.Model):
         super(CNN, self).__init__()
 
         self.num_classes = 10
-        self.batch_size = 100
+        self.batch_size = 200
 
         model = tf.keras.Sequential()
         weights_init = tf.keras.initializers.RandomNormal(mean=0., stddev=0.01)

@@ -2,7 +2,7 @@ import os
 import tensorflow as tf
 from tensorflow.keras import Model
 from tensorflow.keras.regularizers import l2
-from tensorflow.keras.layers import Dense, BatchNormalization, LeakyReLU, Reshape, GRU, InputLayer, LSTM
+from tensorflow.keras.layers import Dense, BatchNormalization, LeakyReLU, Reshape, GRU, InputLayer, LSTM, Dropout
 import numpy as np
 
 class RNN(tf.keras.Model):
@@ -10,7 +10,7 @@ class RNN(tf.keras.Model):
         super(RNN, self).__init__()
 
         self.num_classes = 10
-        self.batch_size = 100
+        self.batch_size = 200
 
         model = tf.keras.Sequential()
         #model.add(Dense(4 * 4 * 32))
@@ -27,9 +27,10 @@ class RNN(tf.keras.Model):
         #model.add(Dense(60, kernel_regularizer=l2(.01), use_bias=True))
         #model.add(Dense(self.num_classes, activation='softmax', use_bias=True))
 
-        model.add(LSTM(units=128, dropout=0.05, recurrent_dropout=0.35, return_sequences=True))
-        model.add(LSTM(units=32,  dropout=0.05, recurrent_dropout=0.35, return_sequences=False))
+        #model.add(LSTM(units=128, dropout=0.5, recurrent_dropout=0.10, return_sequences=True))
+        model.add(LSTM(units=128,  dropout=0.5, recurrent_dropout=0.10, return_sequences=False))
         model.add(Dense(150, activation="relu", use_bias=True))
+        model.add(Dropout(0.5))
         model.add(Dense(units=self.num_classes, activation="softmax", use_bias=True))
 
         # model.add(LSTM(units=128, dropout=0.05, recurrent_dropout=0.35, return_sequences=True))
