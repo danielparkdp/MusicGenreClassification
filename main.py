@@ -44,13 +44,13 @@ def main():
 
     if sys.argv[1] == "LINEAR":
         model = Linear()
-        num_epochs = 100
+        num_epochs = 20
     elif sys.argv[1] == "CNN":
         model = CNN()
-        num_epochs = 1
+        num_epochs = 20
     elif sys.argv[1] == "RNN":
         model = RNN()
-        num_epochs = 1
+        num_epochs = 20
 
 
     for _ in range(num_epochs):
