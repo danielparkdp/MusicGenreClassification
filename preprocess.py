@@ -39,24 +39,16 @@ def get_rnn_data(file_name):
                 songname = f'./data/genres/{g}/{filename}'
                 y, sr = librosa.load(songname, mono=True, duration=30)
                 chroma_stft = librosa.feature.chroma_stft(y=y, sr=sr)
-                #print("chroma: ", np.shape(chroma_stft))
                 rms = librosa.feature.rms(y=y)
-                #print("rms: ", np.shape(rms))
                 spec_cent = librosa.feature.spectral_centroid(y=y, sr=sr)
-                #print("spec_cent: ", np.shape(spec_cent))
                 spec_bw = librosa.feature.spectral_bandwidth(y=y, sr=sr)
-                #print("spec_bw: ", np.shape(spec_bw))
                 rolloff = librosa.feature.spectral_rolloff(y=y, sr=sr)
-                #print("rolloff: ", np.shape(rolloff))
                 zcr = librosa.feature.zero_crossing_rate(y)
-                #print("zcr: ", np.shape(zcr))
                 mfcc = librosa.feature.mfcc(y=y, sr=sr)
                 lenny = int(len(chroma_stft)/divisor)
                 for i in range(divisor):
                     c = chroma_stft[i*lenny:(i+1)*lenny]
                     r =  rms[i*lenny:(i+1)*lenny]
-                    # print("chroma: ", chroma_stft[i*lenny:(i+1)*lenny], len(c))
-                    # print("rms: ", rms[i*lenny:(i+1)*lenny], len(r))
                     to_append = f'{filename} {np.mean(chroma_stft[i*lenny:(i+1)*lenny])} {np.mean(rms)} {np.mean(spec_cent)} {np.mean(spec_bw)} {np.mean(rolloff)} {np.mean(zcr)}'
                     for e in mfcc:
                         to_append += f' {np.mean(e[i*lenny:(i+1)*lenny])}'
@@ -65,27 +57,7 @@ def get_rnn_data(file_name):
                     with file:
                         writer = csv.writer(file)
                         writer.writerow(to_append.split())
-                # songname = f'./data/genres/{g}/{filename}'
-                # y, sr = librosa.load(songname, mono=True, duration=30)
-                # chroma_stft = librosa.feature.chroma_stft(y=y, sr=sr)
-                # rms = librosa.feature.rms(y=y)
-                # spec_cent = librosa.feature.spectral_centroid(y=y, sr=sr)
-                # spec_bw = librosa.feature.spectral_bandwidth(y=y, sr=sr)
-                # rolloff = librosa.feature.spectral_rolloff(y=y, sr=sr)
-                # zcr = librosa.feature.zero_crossing_rate(y)
-                # mfcc = librosa.feature.mfcc(y=y, sr=sr)
-                # to_append = f'{filename} {np.mean(chroma_stft)} {np.mean(rms)} {np.mean(spec_cent)} {np.mean(spec_bw)} {np.mean(rolloff)} {np.mean(zcr)}'
-                # for e in mfcc:
-                #     to_append += f' {np.mean(e)}'
-                # to_append += f' {g}'
-                # file = open('data.csv', 'a', newline='')
-                # with file:
-                #     writer = csv.writer(file)
-                #     writer.writerow(to_append.split())
-
-
-    # reading dataset from csv
-
+        
     data = pd.read_csv('data2.csv')
     data.head()
 
@@ -109,10 +81,7 @@ def get_rnn_data(file_name):
 
     # spliting of dataset into train and test dataset
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
-    print("x train size: ", X_train.shape)
-    print("y train size: ", y_train.shape)
     return X_train, y_train, X_test, y_test
-
 
 
 
@@ -138,8 +107,6 @@ def get_data(file_name):
                 label_id = genre_ids[member.name.split('/')[1]]
                 for i in range(divisor):
                     spliced_datapoint = np.average(converted_mfcc[:, (i * parsed_mfcc_frames): ((i + 1) * parsed_mfcc_frames)], axis=1)
-                    # cov = np.cov(spliced_datapoint)
-                    # print(cov)
                     inputs.append(spliced_datapoint)
                     labels.append(label_id)
     tar.close()

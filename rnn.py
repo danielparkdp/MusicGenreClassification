@@ -13,50 +13,13 @@ class RNN(tf.keras.Model):
         self.batch_size = 200
 
         model = tf.keras.Sequential()
-<<<<<<< HEAD
-        # model.add(Dense(4 * 4 * 32))
-        # model.add(BatchNormalization())
-        # model.add(LeakyReLU(0.2))
-        # model.add(Reshape((16, 32)))
-        # model.add(GRU(90, use_bias=True, dropout=0.5, recurrent_dropout=0.2))
-        # model.add(Dense(60, kernel_regularizer=l2(.01), use_bias=True))
-        # model.add(LeakyReLU(0.5))
-        # model.add(Dense(self.num_classes, activation='softmax', use_bias=True))
-        # model.add(Dense(100, activation="relu"))
-        # model.add(Reshape((5, 20)))
-        # model.add(GRU(20, use_bias=True, dropout=0.5, recurrent_dropout=0.1))
-        # model.add(Dense(60, kernel_regularizer=l2(.01), use_bias=True))
-        # model.add(Dense(self.num_classes, activation='softmax', use_bias=True))
-
-        model.add(LSTM(units=128, dropout=0.05, recurrent_dropout=0.35, return_sequences=True))
-        model.add(LSTM(units=32,  dropout=0.05, recurrent_dropout=0.35, return_sequences=False))
-        model.add(Dense(units=self.num_classes, activation="softmax"))
-=======
-        #model.add(Dense(4 * 4 * 32))
-        #model.add(BatchNormalization())
-        #model.add(LeakyReLU(0.2))
-        #model.add(Reshape((16, 32)))
-        #model.add(GRU(90, use_bias=True, dropout=0.5, recurrent_dropout=0.2))
-        #model.add(Dense(60, kernel_regularizer=l2(.01), use_bias=True))
-        #model.add(LeakyReLU(0.5))
-        #model.add(Dense(self.num_classes, activation='softmax', use_bias=True))
-        # model.add(Dense(100, activation="relu"))
-        #model.add(Reshape((5, 20)))
-        #model.add(GRU(20, use_bias=True, dropout=0.5, recurrent_dropout=0.1))
-        #model.add(Dense(60, kernel_regularizer=l2(.01), use_bias=True))
-        #model.add(Dense(self.num_classes, activation='softmax', use_bias=True))
-
-        #model.add(LSTM(units=128, dropout=0.5, recurrent_dropout=0.10, return_sequences=True))
-        model.add(LSTM(units=128,  dropout=0.5, recurrent_dropout=0.10, return_sequences=False))
-        model.add(Dense(150, activation="relu", use_bias=True))
-        model.add(Dropout(0.5))
-        model.add(Dense(units=self.num_classes, activation="softmax", use_bias=True))
-
-        # model.add(LSTM(units=128, dropout=0.05, recurrent_dropout=0.35, return_sequences=True))
-        # model.add(LSTM(units=32,  dropout=0.05, recurrent_dropout=0.35, return_sequences=False))
-        # model.add(Dense(units=self.num_classes, activation="softmax"))
->>>>>>> 67217ac1bbc5ebd5785d5cac967ece324cbffb95
-
+        model.add(tf.keras.layers.Dense(units=256))
+        model.add(tf.keras.layers.BatchNormalization())
+        model.add(tf.keras.layers.LeakyReLU(0.2))
+        model.add(tf.keras.layers.Reshape((16, 16)))
+        model.add(tf.keras.layers.LSTM(units=128, dropout=0.05, recurrent_dropout=0.35, return_sequences=True))
+        model.add(tf.keras.layers.LSTM(units=32,  dropout=0.05, recurrent_dropout=0.35, return_sequences=False))
+        model.add(tf.keras.layers.Dense(units=10, activation="softmax"))
 
         self.model = model
         self.optimizer = tf.keras.optimizers.Adam(learning_rate=0.01)
