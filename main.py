@@ -16,12 +16,10 @@ def train(model, train_inputs, train_labels):
         with tf.GradientTape() as tape:
             logits = model.call(train_inputs[batch_num : batch_num + model.batch_size])
             loss = model.loss(logits, train_labels[batch_num : batch_num + model.batch_size])
-            # print(loss)
         gradients = tape.gradient(loss, model.trainable_variables)
         model.optimizer.apply_gradients(zip(gradients, model.trainable_variables))
 
 def test(model, test_inputs, test_labels):
-    print("Accuracy")
     logits = model.call(test_inputs)
     return model.accuracy(logits, test_labels)
 
@@ -44,10 +42,10 @@ def main():
 
     if sys.argv[1] == "LINEAR":
         model = Linear()
-        num_epochs = 20
+        num_epochs = 5
     elif sys.argv[1] == "CNN":
         model = CNN()
-        num_epochs = 20
+        num_epochs = 100
     elif sys.argv[1] == "RNN":
         model = RNN()
         num_epochs = 20
@@ -76,6 +74,7 @@ def main():
     #
     # from keras.utils import plot_model
     # plot_model(model, to_file="model.png")
+    print(test(model, train_inputs, train_labels))
     print(test(model, test_inputs, test_labels))
 
 
