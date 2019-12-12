@@ -2,7 +2,7 @@ import os
 import tensorflow as tf
 from tensorflow.keras import Model
 from tensorflow.keras.regularizers import l2
-from tensorflow.keras.layers import Dense, BatchNormalization, LeakyReLU, Reshape, GRU, InputLayer, LSTM
+from tensorflow.keras.layers import Dense, BatchNormalization, LeakyReLU, Reshape, GRU, InputLayer, LSTM, Dropout
 import numpy as np
 
 class RNN(tf.keras.Model):
@@ -10,7 +10,7 @@ class RNN(tf.keras.Model):
         super(RNN, self).__init__()
 
         self.num_classes = 10
-        self.batch_size = 100
+        self.batch_size = 200
 
         model = tf.keras.Sequential()
         # model.add(Dense(4 * 4 * 32))

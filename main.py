@@ -16,12 +16,10 @@ def train(model, train_inputs, train_labels):
         with tf.GradientTape() as tape:
             logits = model.call(train_inputs[batch_num : batch_num + model.batch_size])
             loss = model.loss(logits, train_labels[batch_num : batch_num + model.batch_size])
-            # print(loss)
         gradients = tape.gradient(loss, model.trainable_variables)
         model.optimizer.apply_gradients(zip(gradients, model.trainable_variables))
 
 def test(model, test_inputs, test_labels):
-    print("Accuracy")
     logits = model.call(test_inputs)
     return model.accuracy(logits, test_labels)
 
@@ -38,7 +36,7 @@ def main():
         print("USAGE: python main.py <Model Type>")
         print("<Model Type>: [LINEAR/CNN/RNN]")
         exit()
-
+    type = sys.argv[1]
     print("Running preprocessing...")
     # train_inputs, train_labels, test_inputs, test_labels = get_data("data/genres.tar")
     # train_inputs, train_labels, test_inputs, test_labels = get_data("genres.gz")
